@@ -1,13 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Booking", href: "/booking" },
-  { name: "Booking1", href: "/booking1" },
-  { name: "Booking2", href: "/booking2" },
-  { name: "Steps", href: "/page" },
-  // { name: "Contact", href: "#" },
-];
+// const navLinks = [
+//   { name: "Home", href: "/" },
+//   { name: "Booking", href: "/booking" },
+//   { name: "Booking1", href: "/booking1" },
+//   { name: "Booking2", href: "/booking2" },
+//   { name: "Steps", href: "/page" },
+//   { name: "Contact", href: "#" },
+// ];
 
 function Header() {
   return (
@@ -16,7 +16,7 @@ function Header() {
         <div className="text-2xl font-bold text-black">
           <Link to="/">Cleany</Link>
         </div>
-        <nav className="hidden md:flex space-x-4">
+        {/* <nav className="hidden md:flex space-x-4">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
@@ -26,7 +26,7 @@ function Header() {
               {link.name}
             </NavLink>
           ))}
-        </nav>
+        </nav> */}
       </div>
     </header>
   );
