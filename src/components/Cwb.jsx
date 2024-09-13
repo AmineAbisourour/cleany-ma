@@ -23,10 +23,8 @@ const steps = createArray(3);
 
 function Cwb() {
   const [step, setStep] = useState(1);
-  const [selectedPackage, setSelectedPackage] = useState("regular");
-  // const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-
   const [selectedTime, setSelectedTime] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -62,8 +60,11 @@ function Cwb() {
     setStep(2);
   };
 
-  const handleDateTimeSelect = (date, time) => {
+  const handleDateSelect = (date) => {
     setSelectedDate(date);
+    setSelectedTime("");
+  };
+  const handleTimeSelect = (time) => {
     setSelectedTime(time);
   };
 
@@ -72,8 +73,8 @@ function Cwb() {
   };
   const handleBookingReset = () => {
     setStep(1);
-    setSelectedPackage("regular");
-    setSelectedDate(null);
+    setSelectedPackage("");
+    setSelectedDate("");
     setSelectedTime("");
     setName("");
     setPhone("");
@@ -186,16 +187,22 @@ function Cwb() {
                     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
                     return date < today;
                   }}
-                  selected={selectedDate || undefined}
-                  onSelect={(date) =>
-                    handleDateTimeSelect(date ?? new Date(), "9:00 AM")
-                  }
+                  selected={selectedDate}
+                  onSelect={(date) => handleDateSelect(date)}
                   className="w-full"
                 />
               </div>
               <div className="flex-1 mt-0 p-3 md:mt-4">
                 <h2 className="text-lg font-semibold">Time Slots</h2>
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-2 h-64 overflow-auto">
+                <TimeSlotsGenerator
+                  date={new Date(selectedDate)}
+                  startTime="07:00"
+                  endTime="22:00"
+                  slotDuration={120}
+                  selectedTime={selectedTime}
+                  handleTimeSelect={handleTimeSelect}
+                />
+                {/* <div className="grid grid-cols-2 md:grid-cols-1 gap-2 h-64 overflow-auto">
                   {[
                     "9:00 AM",
                     "10:00 AM",
@@ -206,19 +213,19 @@ function Cwb() {
                   ].map((time) => (
                     <Button
                       key={time}
-                      variant="outline"
+                      variant={time === selectedTime ? "default" : "outline"}
                       className="w-full"
-                      // onClick={() => handleTimeSelect(time)}
+                      onClick={() => handleTimeSelect(time)}
                     >
                       {time}
                     </Button>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex items-center justify-between mt-4">
               <div className="text-sm font-semibold">
-                {selectedDate
+                {selectedDate && selectedTime
                   ? `${selectedDate.toLocaleDateString("en-US", {
                       weekday: "long",
                       month: "long",
@@ -342,3 +349,72 @@ function Cwb() {
   );
 }
 export default Cwb;
+
+const TimeSlotsGenerator = ({
+  date,
+  startTime = "09:00",
+  endTime = "18:00",
+  slotDuration = 30,
+  selectedTime,
+  handleTimeSelect,
+}) => {
+  const generateTimeSlots = (start, end, duration) => {
+    const slots = [];
+    let currentTime = new Date(start);
+
+    while (currentTime <= end) {
+      slots.push(new Date(currentTime));
+      currentTime.setMinutes(currentTime.getMinutes() + duration);
+    }
+    // console.log(slots);
+    return slots;
+  };
+
+  const formatTime = (date) => {
+    const foo = date.toTimeString().slice(0, 5);
+    // console.log(foo);
+    return foo;
+  };
+
+  const getAdjustedStartTime = (date) => {
+    const now = new Date();
+    const isToday = now.toDateString() === date.toDateString();
+
+    let start = new Date(date);
+    start.setHours(...startTime.split(":"));
+    if (isToday && start < now) {
+      start = new Date(now);
+    }
+
+    const end = new Date(date);
+    end.setHours(...endTime.split(":"));
+
+    return { start, end };
+  };
+
+  const { start, end } = getAdjustedStartTime(date);
+  const timeSlots = generateTimeSlots(start, end, slotDuration);
+  console.log(timeSlots);
+
+  return (
+    <div>
+      {/* <h3>Available Time Slots for {date.toDateString()}</h3> */}
+      {/* <ul> */}
+      {timeSlots.length > 0 ? (
+        timeSlots.map((slot, index) => (
+          <Button
+            key={index}
+            variant={formatTime(slot) === selectedTime ? "default" : "outline"}
+            className="w-full"
+            onClick={() => handleTimeSelect(formatTime(slot))}
+          >
+            {formatTime(slot)}
+          </Button>
+        ))
+      ) : (
+        <div>Select a date first!</div>
+      )}
+      {/* </ul> */}
+    </div>
+  );
+};
