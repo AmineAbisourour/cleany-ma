@@ -20,7 +20,10 @@ function Footer() {
             /> */}
             <Icon name="Facebook" className="size-6 hover:fill-[#0866FF]" />
           </a>
-          <a href="/" className="text-black hover:text-gray-600">
+          <a
+            href="https://www.instagram.com/cleany.morocco"
+            className="text-black hover:text-gray-600"
+          >
             {/* <img
               src={instagramLogo}
               alt="Instagram logo"

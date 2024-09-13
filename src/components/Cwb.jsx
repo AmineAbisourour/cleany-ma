@@ -12,6 +12,18 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+// import {
+//   format,
+//   addMinutes,
+//   startOfDay,
+//   endOfDay,
+//   isToday,
+//   isBefore,
+//   isAfter,
+//   startOfHour,
+//   addHours,
+//   differenceInMinutes,
+// } from "date-fns";
 
 function createArray(N) {
   return [...Array(N).keys()].map((i) => i + 1);
@@ -196,7 +208,7 @@ function Cwb() {
                 <h2 className="text-lg font-semibold">Time Slots</h2>
                 <TimeSlotsGenerator
                   date={new Date(selectedDate)}
-                  startTime="07:00"
+                  startTime="8:00"
                   endTime="22:00"
                   slotDuration={120}
                   selectedTime={selectedTime}
@@ -352,54 +364,73 @@ export default Cwb;
 
 const TimeSlotsGenerator = ({
   date,
-  startTime = "09:00",
-  endTime = "18:00",
-  slotDuration = 30,
+  startTime = "08:00",
+  endTime = "22:00",
+  slotDuration = 120, // Default to 2 hours
   selectedTime,
   handleTimeSelect,
 }) => {
+  // Generate the time slots between start and end time with the specified duration
   const generateTimeSlots = (start, end, duration) => {
     const slots = [];
     let currentTime = new Date(start);
 
+    // Generate slots in increments of `slotDuration` until the `end` time
     while (currentTime <= end) {
       slots.push(new Date(currentTime));
       currentTime.setMinutes(currentTime.getMinutes() + duration);
     }
-    // console.log(slots);
+
     return slots;
   };
 
+  // Format the time in "HH:MM" format
   const formatTime = (date) => {
-    const foo = date.toTimeString().slice(0, 5);
-    // console.log(foo);
-    return foo;
+    return date.toTimeString().slice(0, 5);
   };
 
+  // Round to the next valid interval based on the slotDuration
+  const roundToNextInterval = (date, slotDuration) => {
+    const now = new Date(date);
+    const currentMinutes = now.getHours() * 60 + now.getMinutes(); // Convert time to total minutes
+    const nextInterval =
+      Math.ceil(currentMinutes / slotDuration) * slotDuration; // Find next valid interval
+
+    now.setHours(Math.floor(nextInterval / 60), nextInterval % 60, 0, 0); // Set to the next interval
+    return now;
+  };
+
+  // Adjust start time depending on whether it's today or a future date
   const getAdjustedStartTime = (date) => {
     const now = new Date();
     const isToday = now.toDateString() === date.toDateString();
 
     let start = new Date(date);
-    start.setHours(...startTime.split(":"));
-    if (isToday && start < now) {
-      start = new Date(now);
+    start.setHours(...startTime.split(":")); // Set start time from input
+
+    if (isToday) {
+      // If the current time is before the start time, use the start time
+      if (now < start) {
+        start = new Date(date);
+        start.setHours(...startTime.split(":"));
+      } else {
+        // Otherwise, round to the next valid interval
+        start = roundToNextInterval(now, slotDuration);
+      }
     }
 
     const end = new Date(date);
-    end.setHours(...endTime.split(":"));
+    end.setHours(...endTime.split(":")); // Set end time from input
 
-    return { start, end };
+    return { start, end }; // Return the adjusted start and end times
   };
 
+  // Get adjusted start and end times for the date
   const { start, end } = getAdjustedStartTime(date);
   const timeSlots = generateTimeSlots(start, end, slotDuration);
-  console.log(timeSlots);
 
   return (
     <div>
-      {/* <h3>Available Time Slots for {date.toDateString()}</h3> */}
-      {/* <ul> */}
       {timeSlots.length > 0 ? (
         timeSlots.map((slot, index) => (
           <Button
@@ -414,7 +445,99 @@ const TimeSlotsGenerator = ({
       ) : (
         <div>Select a date first!</div>
       )}
-      {/* </ul> */}
     </div>
   );
 };
+
+// const TimeSlotsGenerator = ({
+//   date,
+//   startTime = "08:00",
+//   endTime = "22:00",
+//   slotDuration = 120, // Duration in minutes
+//   selectedTime,
+//   handleTimeSelect,
+// }) => {
+//   // Generate the time slots between start and end time with the specified duration
+//   const generateTimeSlots = (start, end, duration) => {
+//     const slots = [];
+//     let currentTime = start;
+
+//     // Generate slots in increments of `duration` until the `end` time
+//     while (isBefore(currentTime, end)) {
+//       slots.push(currentTime);
+//       currentTime = addMinutes(currentTime, duration);
+//     }
+
+//     return slots;
+//   };
+
+//   // Format the time in "HH:MM" format
+//   const formatTime = (date) => {
+//     return format(date, "HH:mm");
+//   };
+
+//   // Round to the next valid interval based on the slotDuration
+//   const roundToNextInterval = (date, slotDuration) => {
+//     const minutes = differenceInMinutes(date, startOfDay(date));
+//     const nextInterval = Math.ceil(minutes / slotDuration) * slotDuration;
+//     return startOfDay(date, {
+//       hours: Math.floor(nextInterval / 60),
+//       minutes: nextInterval % 60,
+//     });
+//   };
+
+//   // Adjust start time depending on whether it's today or a future date
+//   const getAdjustedStartTime = (date) => {
+//     const now = new Date();
+//     const isTodayDate = isToday(date);
+
+//     let start = startOfDay(date);
+//     start = addMinutes(
+//       start,
+//       parseInt(startTime.split(":")[0]) * 60 + parseInt(startTime.split(":")[1])
+//     );
+
+//     if (isTodayDate) {
+//       // If the current time is before the start time, use the start time
+//       if (isBefore(now, start)) {
+//         start = addMinutes(
+//           startOfDay(date),
+//           parseInt(startTime.split(":")[0]) * 60 +
+//             parseInt(startTime.split(":")[1])
+//         );
+//       } else {
+//         // Otherwise, round to the next valid interval
+//         start = roundToNextInterval(now, slotDuration);
+//       }
+//     }
+
+//     const end = addMinutes(
+//       startOfDay(date),
+//       parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1])
+//     );
+//     return { start, end };
+//   };
+
+//   // Get adjusted start and end times for the date
+//   const { start, end } = getAdjustedStartTime(date);
+//   const timeSlots = generateTimeSlots(start, end, slotDuration);
+
+//   return (
+//     <div>
+//       {timeSlots.length > 0 ? (
+//         timeSlots.map((slot, index) => (
+//           <Button
+//             key={index}
+//             variant={formatTime(slot) === selectedTime ? "default" : "outline"}
+//             className="w-full"
+//             onClick={() => handleTimeSelect(formatTime(slot))}
+//           >
+//             {formatTime(slot)}
+//           </Button>
+//         ))
+//       ) : (
+//         <div>Select a date first!</div>
+//       )}
+//     </div>
+//   );
+// };
