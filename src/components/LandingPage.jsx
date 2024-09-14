@@ -4,6 +4,36 @@ import { Link } from "react-router-dom";
 function LandingPage() {
   return (
     <>
+      <section className="w-full bg-gradient-to-r from-[#1abc9c] to-[#16a085] py-12 md:py-24 lg:py-32">
+        <div className="container px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="space-y-4 text-center md:text-left">
+            <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
+              Effortless Car Wash and Detailing
+            </h1>
+            <p className="text-lg text-white/90 max-w-md">
+              Experience the ultimate in car care with our convenient mobile
+              service. Book now and let us bring the spa treatment to your
+              doorstep.
+            </p>
+            <Link
+              href="#"
+              className="inline-flex h-10 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-[#16a085] shadow transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+              prefetch={false}
+            >
+              Book Now
+            </Link>
+          </div>
+          <div className="w-full max-w-md">
+            <img
+              src="src/assets/Gemini_Generated_Image_r1hd4wr1hd4wr1hd.jpeg"
+              width="400"
+              height="400"
+              alt="Car Wash"
+              className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+            />
+          </div>
+        </div>
+      </section>
       <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
@@ -83,14 +113,6 @@ function LandingPage() {
           </div>
         </div>
       </div>
-      {/* <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 hero-left-content">
-          sdsdsd
-        </div>
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gray-700 hero-right-content">
-          xcxcxcxcxc
-        </div>
-      </div> */}
     </>
   );
 }
