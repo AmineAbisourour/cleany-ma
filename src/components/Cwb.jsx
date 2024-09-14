@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -12,18 +12,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-// import {
-//   format,
-//   addMinutes,
-//   startOfDay,
-//   endOfDay,
-//   isToday,
-//   isBefore,
-//   isAfter,
-//   startOfHour,
-//   addHours,
-//   differenceInMinutes,
-// } from "date-fns";
 
 function createArray(N) {
   return [...Array(N).keys()].map((i) => i + 1);
@@ -114,28 +102,6 @@ function Cwb() {
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-6">
-      {/* <div className="flex items-center gap-2 justify-center">
-        <div
-          className={`w-3 h-3 rounded-full ${
-            step >= 1 ? "bg-primary" : "bg-muted"
-          }`}
-        />
-        <div
-          className={`w-3 h-3 rounded-full ${
-            step >= 2 ? "bg-primary" : "bg-muted"
-          }`}
-        />
-        <div
-          className={`w-3 h-3 rounded-full ${
-            step >= 3 ? "bg-primary" : "bg-muted"
-          }`}
-        />
-        <div
-          className={`w-3 h-3 rounded-full ${
-            step === 4 ? "bg-primary" : "bg-muted"
-          }`}
-        />
-      </div> */}
       <div className="flex justify-between rounded p-8">
         {steps.map((index) => (
           <Step key={index} id={index} currentStep={step} />
@@ -214,25 +180,6 @@ function Cwb() {
                   selectedTime={selectedTime}
                   handleTimeSelect={handleTimeSelect}
                 />
-                {/* <div className="grid grid-cols-2 md:grid-cols-1 gap-2 h-64 overflow-auto">
-                  {[
-                    "9:00 AM",
-                    "10:00 AM",
-                    "11:00 AM",
-                    "12:00 PM",
-                    "1:00 PM",
-                    "2:00 PM",
-                  ].map((time) => (
-                    <Button
-                      key={time}
-                      variant={time === selectedTime ? "default" : "outline"}
-                      className="w-full"
-                      onClick={() => handleTimeSelect(time)}
-                    >
-                      {time}
-                    </Button>
-                  ))}
-                </div> */}
               </div>
             </div>
             <div className="flex items-center justify-between mt-4">
@@ -448,96 +395,3 @@ const TimeSlotsGenerator = ({
     </div>
   );
 };
-
-// const TimeSlotsGenerator = ({
-//   date,
-//   startTime = "08:00",
-//   endTime = "22:00",
-//   slotDuration = 120, // Duration in minutes
-//   selectedTime,
-//   handleTimeSelect,
-// }) => {
-//   // Generate the time slots between start and end time with the specified duration
-//   const generateTimeSlots = (start, end, duration) => {
-//     const slots = [];
-//     let currentTime = start;
-
-//     // Generate slots in increments of `duration` until the `end` time
-//     while (isBefore(currentTime, end)) {
-//       slots.push(currentTime);
-//       currentTime = addMinutes(currentTime, duration);
-//     }
-
-//     return slots;
-//   };
-
-//   // Format the time in "HH:MM" format
-//   const formatTime = (date) => {
-//     return format(date, "HH:mm");
-//   };
-
-//   // Round to the next valid interval based on the slotDuration
-//   const roundToNextInterval = (date, slotDuration) => {
-//     const minutes = differenceInMinutes(date, startOfDay(date));
-//     const nextInterval = Math.ceil(minutes / slotDuration) * slotDuration;
-//     return startOfDay(date, {
-//       hours: Math.floor(nextInterval / 60),
-//       minutes: nextInterval % 60,
-//     });
-//   };
-
-//   // Adjust start time depending on whether it's today or a future date
-//   const getAdjustedStartTime = (date) => {
-//     const now = new Date();
-//     const isTodayDate = isToday(date);
-
-//     let start = startOfDay(date);
-//     start = addMinutes(
-//       start,
-//       parseInt(startTime.split(":")[0]) * 60 + parseInt(startTime.split(":")[1])
-//     );
-
-//     if (isTodayDate) {
-//       // If the current time is before the start time, use the start time
-//       if (isBefore(now, start)) {
-//         start = addMinutes(
-//           startOfDay(date),
-//           parseInt(startTime.split(":")[0]) * 60 +
-//             parseInt(startTime.split(":")[1])
-//         );
-//       } else {
-//         // Otherwise, round to the next valid interval
-//         start = roundToNextInterval(now, slotDuration);
-//       }
-//     }
-
-//     const end = addMinutes(
-//       startOfDay(date),
-//       parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1])
-//     );
-//     return { start, end };
-//   };
-
-//   // Get adjusted start and end times for the date
-//   const { start, end } = getAdjustedStartTime(date);
-//   const timeSlots = generateTimeSlots(start, end, slotDuration);
-
-//   return (
-//     <div>
-//       {timeSlots.length > 0 ? (
-//         timeSlots.map((slot, index) => (
-//           <Button
-//             key={index}
-//             variant={formatTime(slot) === selectedTime ? "default" : "outline"}
-//             className="w-full"
-//             onClick={() => handleTimeSelect(formatTime(slot))}
-//           >
-//             {formatTime(slot)}
-//           </Button>
-//         ))
-//       ) : (
-//         <div>Select a date first!</div>
-//       )}
-//     </div>
-//   );
-// };
