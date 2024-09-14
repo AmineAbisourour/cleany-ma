@@ -1,5 +1,6 @@
 import { Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import HeroImg from "@/assets/Gemini_Generated_Image_r1hd4wr1hd4wr1hd.jpeg";
 
 function LandingPage() {
   return (
@@ -25,7 +26,7 @@ function LandingPage() {
           </div>
           <div className="w-full max-w-md">
             <img
-              src="src/assets/Gemini_Generated_Image_r1hd4wr1hd4wr1hd.jpeg"
+              src={HeroImg}
               width="400"
               height="400"
               alt="Car Wash"
