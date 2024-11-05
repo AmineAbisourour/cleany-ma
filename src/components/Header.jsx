@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { Phone } from "lucide-react";
+import logo from "@/assets/logo.svg";
 
 // const navLinks = [
 //   { name: "Home", href: "/" },
@@ -15,11 +16,13 @@ function Header() {
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-black">
-          <Link to="/">Cleany</Link>
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <div className="rounded-md shadow">
           <Link
-            to="tel:+212634691864"
+            to="tel:+212660004043"
             className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
           >
             <Phone

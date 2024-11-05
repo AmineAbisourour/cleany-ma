@@ -13,19 +13,19 @@ function LandingPage() {
 
   const cards = [
     {
-      title: "Basic Plan",
-      description: "Perfect for starters",
-      price: "$9.99/mo",
+      title: "Standard",
+      description: "Estimated time : 40min",
+      price: "100 dhs",
     },
     {
-      title: "Pro Plan",
-      description: "For growing businesses",
-      price: "$19.99/mo",
+      title: "Premium",
+      description: "Estimated time : 2h",
+      price: "250 dhs",
     },
     {
-      title: "Enterprise Plan",
-      description: "For large organizations",
-      price: "$49.99/mo",
+      title: "Deep Clean",
+      description: "Estimated time : 4h",
+      price: "600 dhs",
     },
   ];
   return (
