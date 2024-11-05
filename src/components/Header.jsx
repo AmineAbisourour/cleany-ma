@@ -15,11 +15,9 @@ function Header() {
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-black">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
-        </div>
+        <Link to="/">
+          <img className="scale-75" src={logo} alt="logo" />
+        </Link>
         <div className="rounded-md shadow">
           <Link
             to="tel:+212660004043"
