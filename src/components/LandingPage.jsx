@@ -1,11 +1,36 @@
-import { Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import HeroImg from "@/assets/Gemini_Generated_Image_r1hd4wr1hd4wr1hd.jpeg";
+import { useState } from "react";
+import { Check } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 function LandingPage() {
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const cards = [
+    {
+      title: "Basic Plan",
+      description: "Perfect for starters",
+      price: "$9.99/mo",
+    },
+    {
+      title: "Pro Plan",
+      description: "For growing businesses",
+      price: "$19.99/mo",
+    },
+    {
+      title: "Enterprise Plan",
+      description: "For large organizations",
+      price: "$49.99/mo",
+    },
+  ];
   return (
     <>
-      <section className="w-full bg-gradient-to-r from-[#1abc9c] to-[#16a085] py-12 md:py-24 lg:py-32">
+      {/* <section className="w-full bg-gradient-to-r from-[#1abc9c] to-[#16a085] py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-4 text-center md:text-left">
             <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
@@ -34,7 +59,7 @@ function LandingPage() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
@@ -44,6 +69,39 @@ function LandingPage() {
             We provide top-notch services to meet all your needs. Experience the
             difference with Cleany.
           </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            {cards.map((card, index) => (
+              <Card
+                key={index}
+                className={`relative overflow-hidden transition-all duration-300 ease-in-out ${
+                  selectedCard === index
+                    ? "border-primary shadow-lg"
+                    : "hover:shadow-md hover:-translate-y-1"
+                }`}
+                onClick={() => setSelectedCard(index)}
+              >
+                <CardHeader className="p-6">
+                  <CardTitle className="text-2xl font-bold">
+                    {card.title}
+                  </CardTitle>
+                  <CardDescription>{card.description}</CardDescription>
+                  <p className="mt-4 text-3xl font-bold text-primary">
+                    {card.price}
+                  </p>
+                  {selectedCard === index && (
+                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground rounded-full p-1">
+                      <Check className="h-4 w-4" />
+                    </div>
+                  )}
+                </CardHeader>
+                <div
+                  className="absolute inset-0 bg-primary/5 opacity-0 transition-opacity duration-300 ease-in-out"
+                  style={{ opacity: selectedCard === index ? 1 : 0 }}
+                />
+              </Card>
+            ))}
+          </div>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
               <Link
@@ -54,25 +112,9 @@ function LandingPage() {
               </Link>
             </div>
           </div>
-          <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div className="rounded-md shadow">
-              <Link
-                to="tel:+212634691864"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
-              >
-                <Phone
-                  size={20}
-                  fill="white"
-                  strokeWidth={0}
-                  style={{ marginRight: "5px" }}
-                />
-                Call Now
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
-      <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
+      {/* <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="container px-4 md:px-6 overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
             <div className="bg-primary rounded-xl overflow-hidden relative hero-left-content">
@@ -113,7 +155,7 @@ function LandingPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { Phone } from "lucide-react";
 
 // const navLinks = [
 //   { name: "Home", href: "/" },
@@ -16,17 +17,20 @@ function Header() {
         <div className="text-2xl font-bold text-black">
           <Link to="/">Cleany</Link>
         </div>
-        {/* <nav className="hidden md:flex space-x-4">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.name}
-              to={link.href}
-              className={({ isActive }) => (isActive ? " text-blue-500" : "")}
-            >
-              {link.name}
-            </NavLink>
-          ))}
-        </nav> */}
+        <div className="rounded-md shadow">
+          <Link
+            to="tel:+212634691864"
+            className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
+          >
+            <Phone
+              size={20}
+              fill="white"
+              strokeWidth={0}
+              style={{ marginRight: "5px" }}
+            />
+            Call Now
+          </Link>
+        </div>
       </div>
     </header>
   );
