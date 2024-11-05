@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 function LandingPage() {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -28,6 +29,8 @@ function LandingPage() {
       price: "600 dhs",
     },
   ];
+
+  console.log(selectedCard);
   return (
     <>
       {/* <section className="w-full bg-gradient-to-r from-[#1abc9c] to-[#16a085] py-12 md:py-24 lg:py-32">
@@ -104,12 +107,19 @@ function LandingPage() {
           </div>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
-              <Link
+              {/* <Link
                 to="/cwb"
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
               >
                 Book Service Now
-              </Link>
+              </Link> */}
+              <Button
+                size="lg"
+                className="w-full"
+                disabled={selectedCard == null}
+              >
+                Book Now
+              </Button>
             </div>
           </div>
         </div>

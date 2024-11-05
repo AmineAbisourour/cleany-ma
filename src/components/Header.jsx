@@ -21,7 +21,7 @@ function Header() {
         <div className="rounded-md shadow">
           <Link
             to="tel:+212660004043"
-            className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
+            className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10 whitespace-nowrap"
           >
             <Phone
               size={20}
