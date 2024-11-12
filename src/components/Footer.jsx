@@ -11,17 +11,9 @@ function Footer() {
           © 2024 Cleany. All rights reserved.
         </div>
         <div className="flex space-x-4">
-          <a href="/" className="text-black hover:text-gray-600">
-            {/* <img
-              src={facebookLogo}
-              alt="Facebook logo"
-              width={24}
-              height={24}
-            /> */}
-            <Icon name="Facebook" className="size-6 hover:fill-[#0866FF]" />
-          </a>
           <a
-            href="https://www.instagram.com/cleany.morocco"
+            href="https://www.instagram.com/cleany.tanger"
+            target="_blank"
             className="text-black hover:text-gray-600"
           >
             {/* <img
@@ -32,7 +24,11 @@ function Footer() {
             /> */}
             <Icon name="Instagram" className="size-6 hover:fill-[#E4405F]" />
           </a>
-          <a href="/" className="text-black hover:text-gray-600">
+          <a
+            href="https://wa.me/+212660004043"
+            target="_blank"
+            className="text-black hover:text-gray-600"
+          >
             {/* <img
               src={whatsappLogo}
               alt="Whatsapp logo"

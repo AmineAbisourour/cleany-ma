@@ -63,7 +63,7 @@ function LandingPage() {
           </div>
         </div>
       </section> */}
-      <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-transparent py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
             Welcome to <span className="text-gray-700">Cleany</span>
