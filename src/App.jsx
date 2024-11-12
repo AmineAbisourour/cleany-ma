@@ -5,6 +5,7 @@ import Cwb from "./components/Cwb";
 import HeroCards from "@/components/hero-cards";
 import PageNotFound from "./components/PageNotFound";
 import ComingSoonPage from "./components/coming-soon-page";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           </Routes>
         </Layout>
       </Router>
+      <SpeedInsights />
     </div>
   );
 }
