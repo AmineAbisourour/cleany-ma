@@ -68,11 +68,3 @@
     @apply bg-background text-foreground;
   }
 }
-.appBG {
-  background-image: url("assets/bg.svg");
-  background-size: 100vh;
-  background-repeat: no-repeat;
-  background-position: center;
-  scrole
-  height: 100vh; /* Adjust height as needed */
-}
